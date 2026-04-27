@@ -8,29 +8,17 @@ public class Main {
     public static void main(String[] args) {
         String inputFilePath = "input.bn";
         String outputFilePath = "output.txt";
-
-        // Open the PrintWriter at the start so we can write errors to it
         try (PrintWriter out = new PrintWriter(outputFilePath)) {
             try {
-                // 1. Read source code
                 String source = Files.readString(Paths.get(inputFilePath));
-                
-                // 2. Lexical Analysis
                 Lexer lexer = new Lexer(source);
                 List<Token> tokens = lexer.scanTokens();
-                
-                // 3. Syntax Analysis
+
                 Parser parser = new Parser(tokens);
                 List<ASTNode> astNodes = parser.parse();
-
-                // 4. Full Semantic Analysis
                 SymbolTable st = new SymbolTable();
                 SemanticAnalyzer analyzer = new SemanticAnalyzer(st);
-                
-                // This will throw an exception if a variable is undefined or math fails
                 analyzer.analyze(astNodes); 
-
-                // 5. Generate Success Report
                 out.println("=== STEP 1: LEXICAL ANALYSIS (TOKENS) ===");
                 for (Token t : tokens) {
                     out.println(t.toString());

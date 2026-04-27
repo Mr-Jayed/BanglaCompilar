@@ -1,0 +1,39 @@
+=== STEP 1: LEXICAL ANALYSIS (TOKENS) ===
+Token{type=DHORO, lexeme='ধরো'}
+Token{type=ID, lexeme='ক'}
+Token{type=ASSIGN, lexeme='='}
+Token{type=NUMBER, lexeme='১০'}
+Token{type=SEMI, lexeme=';'}
+Token{type=DHORO, lexeme='ধরো'}
+Token{type=ID, lexeme='খ'}
+Token{type=ASSIGN, lexeme='='}
+Token{type=NUMBER, lexeme='২০২০'}
+Token{type=SEMI, lexeme=';'}
+Token{type=DHORO, lexeme='ধরো'}
+Token{type=ID, lexeme='ফলাফল'}
+Token{type=ASSIGN, lexeme='='}
+Token{type=ID, lexeme='ক'}
+Token{type=PLUS, lexeme='+'}
+Token{type=ID, lexeme='খ'}
+Token{type=SEMI, lexeme=';'}
+Token{type=EOF, lexeme=''}
+
+=== STEP 2: SYNTAX ANALYSIS (AST) ===
+Assignment: ক
+  Integer Value: ১০
+Assignment: খ
+  Integer Value: ২০২০
+Assignment: ফলাফল
+  Binary Operator: +
+    Variable: ক
+    Variable: খ
+
+=== STEP 3: SEMANTIC ANALYSIS & SYMBOL TABLE ===
+[Status]: Type checking passed.
+[Status]: Scope check passed.
+-------------------------
+Variable | Value (Bangla)
+-------------------------
+ক : ১০
+খ : ২০২০
+ফলাফল : ২০৩০

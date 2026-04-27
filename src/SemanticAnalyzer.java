@@ -53,7 +53,6 @@ public class SemanticAnalyzer {
         return 0;
     }
 
-    // Helper to convert English result to Bangla for the report
     public static String convertEnglishToBangla(int number) {
         String engNum = String.valueOf(number);
         StringBuilder sb = new StringBuilder();
@@ -63,8 +62,6 @@ public class SemanticAnalyzer {
         }
         return sb.toString();
     }
-
-    // Existing helper for Lexer/Parser use
     public static int convertBanglaToEnglish(String bNum) {
         StringBuilder sb = new StringBuilder();
         for (char c : bNum.toCharArray()) sb.append((char) (c - '০' + '0'));
