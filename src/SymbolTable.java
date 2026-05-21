@@ -2,14 +2,13 @@ import java.util.*;
 import java.io.PrintWriter;
 
 public class SymbolTable {
-    // Changing HashMap to LinkedHashMap to maintain order
-    private final Map<String, Integer> table = new LinkedHashMap<>();
+    private final Map<String, Object> table = new LinkedHashMap<>();
 
-    public void set(String name, int val) { 
+    public void set(String name, Object val) { 
         table.put(name, val); 
     }
 
-    public int get(String name) { 
+    public Object get(String name) { 
         return table.get(name); 
     }
 
@@ -24,7 +23,12 @@ public class SymbolTable {
             out.println("(No variables defined)");
         } else {
             table.forEach((k, v) -> {
-                String bVal = SemanticAnalyzer.convertEnglishToBangla(v);
+                String bVal;
+                if (v instanceof Boolean) {
+                    bVal = (Boolean) v ? "সত্য" : "মিথ্যা";
+                } else {
+                    bVal = SemanticAnalyzer.convertEnglishToBangla((Integer) v);
+                }
                 out.println(k + " : " + bVal);
             });
         }
