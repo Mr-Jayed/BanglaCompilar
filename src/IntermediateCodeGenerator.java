@@ -41,7 +41,6 @@ public class IntermediateCodeGenerator {
         String condCode = generateExpr(node.condition);
 
         if (node.elseBody != null) {
-            // if-else
             String elseLabel = generateLabel();
             String endLabel = generateLabel();
             instructions.add(new Instruction("IF_FALSE_GOTO", condCode, elseLabel));
@@ -55,7 +54,6 @@ public class IntermediateCodeGenerator {
             }
             instructions.add(new Instruction("LABEL", endLabel, null));
         } else {
-            // if only (no else)
             String endLabel = generateLabel();
             instructions.add(new Instruction("IF_FALSE_GOTO", condCode, endLabel));
             for (ASTNode stmt : node.thenBody) {

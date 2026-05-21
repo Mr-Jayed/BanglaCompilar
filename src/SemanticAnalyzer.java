@@ -9,7 +9,6 @@ public class SemanticAnalyzer {
         this.symbolTable = st;
     }
 
-    // Main entry point for analysis
     public void analyze(List<ASTNode> nodes) {
         for (ASTNode node : nodes) {
             evaluate(node);
@@ -42,7 +41,6 @@ public class SemanticAnalyzer {
             Object leftObj = evaluate(binOp.left);
             Object rightObj = evaluate(binOp.right);
 
-            // Equality and comparison operators
             if (binOp.operator.equals("==")) {
                 return leftObj.equals(rightObj);
             }
