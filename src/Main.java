@@ -14,14 +14,14 @@ public class Main {
         java.nio.file.Path outputPath = Paths.get(outputFilePath);
         if (!inputPath.isAbsolute()) {
             inputPath = cwd.resolve(inputFilePath).normalize();
-            // If running from src directory, check parent directory for input.bn
+            
             if (!Files.exists(inputPath) && cwd.endsWith("src")) {
                 inputPath = cwd.getParent().resolve(inputFilePath).normalize();
             }
         }
         if (!outputPath.isAbsolute()) {
             outputPath = cwd.resolve(outputFilePath).normalize();
-            // If running from src directory, put output.txt in parent directory
+        
             if (cwd.endsWith("src")) {
                 outputPath = cwd.getParent().resolve(outputFilePath).normalize();
             }
@@ -33,7 +33,7 @@ public class Main {
                 Lexer lexer = new Lexer(source);
                 List<Token> tokens = lexer.scanTokens();
 
-                // Use the new recursive-descent parser (no grammar file needed)
+                
                 Parser parser = new Parser(tokens);
                 List<ASTNode> astNodes = parser.parse();
                 SymbolTable st = new SymbolTable();
@@ -56,7 +56,7 @@ public class Main {
                 out.println("[Status]: Scope check passed.");
                 out.println("-------------------------");
                 st.displayToFile(out);
-                // Print any output from দেখাও statements
+                
                 List<String> printOutput = analyzer.getPrintOutput();
                 if (!printOutput.isEmpty()) {
                     out.println("-------------------------");
@@ -74,7 +74,7 @@ public class Main {
                     out.println(inst.toString());
                 }
 
-                // --- STEP 5: OPTIMIZATION ---
+                
                 Optimizer optimizer = new Optimizer();
                 List<Instruction> optimized = optimizer.optimize(instructions);
 
@@ -88,8 +88,7 @@ public class Main {
                     out.println("  " + inst.toString());
                 }
 
-                // --- STEP 6: TARGET CODE GENERATOR ---
-                // Use AST-based generation for clean structured Python code
+                
                 TargetCodeGenerator tcg = new TargetCodeGenerator();
                 String pythonCode = tcg.generatePythonFromAST(astNodes);
                 
@@ -104,7 +103,6 @@ public class Main {
                 System.out.println("Target code generated at: " + targetPath);
 
             } catch (RuntimeException semanticOrSyntaxError) {
-                // Catch errors like undefined variables or syntax mistakes
                 out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 out.println("COMPILER ERROR: " + semanticOrSyntaxError.getMessage());
                 out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -116,7 +114,7 @@ public class Main {
             }
 
         } catch (Exception fatalError) {
-            // This catches errors in creating the output.txt file itself
+            
             System.err.println("Fatal Error: Could not write to output file. " + fatalError.getMessage());
         }
     }

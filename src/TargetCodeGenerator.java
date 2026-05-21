@@ -3,17 +3,12 @@ import java.util.ArrayList;
 
 public class TargetCodeGenerator {
 
-    /**
-     * Generates Python code from the given list of three-address code instructions.
-     * Handles: assignments, binary ops, if-else, while loops, print.
-     */
+    
     public String generatePythonCode(List<Instruction> instructions) {
         StringBuilder pyCode = new StringBuilder();
         pyCode.append("# Auto-generated Python Target Code from Bangla Compiler\n\n");
 
-        // We need to track indentation for if/else/while blocks
         int indent = 0;
-        // Track user variables for final print
         List<String> userVars = new ArrayList<>();
 
         for (int i = 0; i < instructions.size(); i++) {
@@ -22,14 +17,10 @@ public class TargetCodeGenerator {
 
             switch (inst.type) {
                 case "LABEL":
-                    // Labels are not needed in Python (used for goto-based IR only)
-                    // We use structured code generation instead
                     break;
                 case "GOTO":
-                    // Handled by structured generation
                     break;
                 case "IF_FALSE_GOTO":
-                    // Start of an if block
                     pyCode.append(pad).append("if ").append(mapValue(inst.arg1)).append(":\n");
                     indent++;
                     break;
@@ -37,7 +28,6 @@ public class TargetCodeGenerator {
                     pyCode.append(pad).append("print(").append(mapValue(inst.arg1)).append(")\n");
                     break;
                 default:
-                    // ASSIGN or BINOP
                     String left = mapValue(inst.arg1);
                     if (inst.operator == null) {
                         pyCode.append(pad).append(inst.result).append(" = ").append(left).append("\n");
@@ -46,7 +36,6 @@ public class TargetCodeGenerator {
                         String op = inst.operator;
                         pyCode.append(pad).append(inst.result).append(" = ").append(left).append(" ").append(op).append(" ").append(right).append("\n");
                     }
-                    // Track user variables
                     if (inst.result != null && !inst.result.matches("t\\d+") && !userVars.contains(inst.result)) {
                         userVars.add(inst.result);
                     }
@@ -54,7 +43,7 @@ public class TargetCodeGenerator {
             }
         }
 
-        // Add code to print the final state of non-temporary variables so we can see the output when running the Python file
+        
         pyCode.append("\n# Print final state of variables\n");
         pyCode.append("print('--- Execution Output ---')\n");
         for (String var : userVars) {
@@ -64,17 +53,13 @@ public class TargetCodeGenerator {
         return pyCode.toString();
     }
 
-    /**
-     * Generates structured Python code directly from AST nodes.
-     * This produces cleaner Python with proper if/else/while blocks.
-     */
+    
     public String generatePythonFromAST(List<ASTNode> nodes) {
         StringBuilder pyCode = new StringBuilder();
         pyCode.append("# Auto-generated Python Target Code from Bangla Compiler\n\n");
         List<String> userVars = new ArrayList<>();
         generateBlock(nodes, 0, pyCode, userVars);
 
-        // Add code to print the final state of non-temporary variables
         pyCode.append("\n# Print final state of variables\n");
         pyCode.append("print('--- Execution Output ---')\n");
         for (String var : userVars) {
@@ -135,22 +120,18 @@ public class TargetCodeGenerator {
         return "None";
     }
 
-    /**
-     * Maps Bangla string values to valid Python literals or identifiers.
-     */
+    
     private String mapValue(String val) {
         if (val == null) return null;
 
-        // Map Boolean values
+        
         if (val.equals("সত্য")) return "True";
         if (val.equals("মিথ্যা")) return "False";
 
-        // Map Bangla numbers to English digits for Python
         if (isBanglaNumber(val)) {
             return String.valueOf(SemanticAnalyzer.convertBanglaToEnglish(val));
         }
 
-        // Return variable name as-is (Python 3 supports UTF-8 identifiers)
         return val;
     }
 
@@ -158,7 +139,7 @@ public class TargetCodeGenerator {
         if (val == null || val.isEmpty()) return false;
         for (int i = 0; i < val.length(); i++) {
             char c = val.charAt(i);
-            if (i == 0 && c == '-') continue; // handle negative
+            if (i == 0 && c == '-') continue; 
             if (c < '০' || c > '৯') return false;
         }
         return true;
