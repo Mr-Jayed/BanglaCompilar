@@ -11,7 +11,13 @@ public class Lexer {
 
     static {
         keywords = new HashMap<>();
-        keywords.put("ধরো", TokenType.DHORO);
+        keywords.put("সংখ্যা", TokenType.DHORO);
+        keywords.put("সত্য", TokenType.TRUE);
+        keywords.put("মিথ্যা", TokenType.FALSE);
+        keywords.put("যদি", TokenType.IF);
+        keywords.put("নাহলে", TokenType.ELSE);
+        keywords.put("যতক্ষণ", TokenType.WHILE);
+        keywords.put("দেখাও", TokenType.PRINT);
     }
 
     public Lexer(String source) {
@@ -32,12 +38,41 @@ public class Lexer {
         switch (c) {
             case '(': addToken(TokenType.LPAREN); break;
             case ')': addToken(TokenType.RPAREN); break;
+            case '{': addToken(TokenType.LBRACE); break;
+            case '}': addToken(TokenType.RBRACE); break;
             case '+': addToken(TokenType.PLUS); break;
             case '-': addToken(TokenType.MINUS); break;
             case '*': addToken(TokenType.MUL); break;
             case '/': addToken(TokenType.DIV); break;
             case ';': addToken(TokenType.SEMI); break;
-            case '=': addToken(TokenType.ASSIGN); break;
+            case '=': 
+                if (match('=')) {
+                    addToken(TokenType.EQ);
+                } else {
+                    addToken(TokenType.ASSIGN);
+                }
+                break;
+            case '!':
+                if (match('=')) {
+                    addToken(TokenType.NEQ);
+                } else {
+                    System.err.println("Line " + line + ": Expected '=' after '!'");
+                }
+                break;
+            case '>':
+                if (match('=')) {
+                    addToken(TokenType.GTE);
+                } else {
+                    addToken(TokenType.GT);
+                }
+                break;
+            case '<':
+                if (match('=')) {
+                    addToken(TokenType.LTE);
+                } else {
+                    addToken(TokenType.LT);
+                }
+                break;
             case ' ':
             case '\r':
             case '\t': break;
@@ -75,6 +110,12 @@ public class Lexer {
     }
 
     private char advance() { return source.charAt(current++); }
+    private boolean match(char expected) {
+        if (isAtEnd()) return false;
+        if (source.charAt(current) != expected) return false;
+        current++;
+        return true;
+    }
     private void addToken(TokenType type) { tokens.add(new Token(type, source.substring(start, current), line)); }
     private boolean isAtEnd() { return current >= source.length(); }
     private char peek() { return isAtEnd() ? '\0' : source.charAt(current); }
