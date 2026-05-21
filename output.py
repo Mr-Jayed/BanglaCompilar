@@ -1,6 +1,6 @@
 # Auto-generated Python Target Code from Bangla Compiler
 
-প্রথম = 100
+প্রথম = 10
 দ্বিতীয় = 20
 যোগ = (প্রথম + দ্বিতীয়)
 print(যোগ)

@@ -1,0 +1,259 @@
+[Input]: D:\BanglaCompilar\input.bn
+[Output]: D:\BanglaCompilar\output.txt
+=== STEP 1: LEXICAL ANALYSIS (TOKENS) ===
+Token{type=DHORO, lexeme='সংখ্যা'}
+Token{type=ID, lexeme='প্রথম'}
+Token{type=ASSIGN, lexeme='='}
+Token{type=NUMBER, lexeme='১০'}
+Token{type=SEMI, lexeme=';'}
+Token{type=DHORO, lexeme='সংখ্যা'}
+Token{type=ID, lexeme='দ্বিতীয়'}
+Token{type=ASSIGN, lexeme='='}
+Token{type=NUMBER, lexeme='২০'}
+Token{type=SEMI, lexeme=';'}
+Token{type=DHORO, lexeme='সংখ্যা'}
+Token{type=ID, lexeme='যোগ'}
+Token{type=ASSIGN, lexeme='='}
+Token{type=ID, lexeme='প্রথম'}
+Token{type=PLUS, lexeme='+'}
+Token{type=ID, lexeme='দ্বিতীয়'}
+Token{type=SEMI, lexeme=';'}
+Token{type=PRINT, lexeme='দেখাও'}
+Token{type=LPAREN, lexeme='('}
+Token{type=ID, lexeme='যোগ'}
+Token{type=RPAREN, lexeme=')'}
+Token{type=SEMI, lexeme=';'}
+Token{type=DHORO, lexeme='সংখ্যা'}
+Token{type=ID, lexeme='বিয়োগ'}
+Token{type=ASSIGN, lexeme='='}
+Token{type=ID, lexeme='প্রথম'}
+Token{type=MINUS, lexeme='-'}
+Token{type=ID, lexeme='দ্বিতীয়'}
+Token{type=SEMI, lexeme=';'}
+Token{type=PRINT, lexeme='দেখাও'}
+Token{type=LPAREN, lexeme='('}
+Token{type=ID, lexeme='বিয়োগ'}
+Token{type=RPAREN, lexeme=')'}
+Token{type=SEMI, lexeme=';'}
+Token{type=DHORO, lexeme='সংখ্যা'}
+Token{type=ID, lexeme='গুণ'}
+Token{type=ASSIGN, lexeme='='}
+Token{type=ID, lexeme='প্রথম'}
+Token{type=MUL, lexeme='*'}
+Token{type=ID, lexeme='দ্বিতীয়'}
+Token{type=SEMI, lexeme=';'}
+Token{type=PRINT, lexeme='দেখাও'}
+Token{type=LPAREN, lexeme='('}
+Token{type=ID, lexeme='গুণ'}
+Token{type=RPAREN, lexeme=')'}
+Token{type=SEMI, lexeme=';'}
+Token{type=DHORO, lexeme='সংখ্যা'}
+Token{type=ID, lexeme='ভাগ'}
+Token{type=ASSIGN, lexeme='='}
+Token{type=ID, lexeme='প্রথম'}
+Token{type=DIV, lexeme='/'}
+Token{type=ID, lexeme='দ্বিতীয়'}
+Token{type=SEMI, lexeme=';'}
+Token{type=PRINT, lexeme='দেখাও'}
+Token{type=LPAREN, lexeme='('}
+Token{type=ID, lexeme='ভাগ'}
+Token{type=RPAREN, lexeme=')'}
+Token{type=SEMI, lexeme=';'}
+Token{type=IF, lexeme='যদি'}
+Token{type=LPAREN, lexeme='('}
+Token{type=ID, lexeme='যোগ'}
+Token{type=GT, lexeme='>'}
+Token{type=NUMBER, lexeme='১৫০'}
+Token{type=RPAREN, lexeme=')'}
+Token{type=LBRACE, lexeme='{'}
+Token{type=PRINT, lexeme='দেখাও'}
+Token{type=LPAREN, lexeme='('}
+Token{type=NUMBER, lexeme='১'}
+Token{type=RPAREN, lexeme=')'}
+Token{type=SEMI, lexeme=';'}
+Token{type=RBRACE, lexeme='}'}
+Token{type=ELSE, lexeme='নাহলে'}
+Token{type=LBRACE, lexeme='{'}
+Token{type=PRINT, lexeme='দেখাও'}
+Token{type=LPAREN, lexeme='('}
+Token{type=NUMBER, lexeme='০'}
+Token{type=RPAREN, lexeme=')'}
+Token{type=SEMI, lexeme=';'}
+Token{type=RBRACE, lexeme='}'}
+Token{type=DHORO, lexeme='সংখ্যা'}
+Token{type=ID, lexeme='লুপ'}
+Token{type=ASSIGN, lexeme='='}
+Token{type=NUMBER, lexeme='১'}
+Token{type=SEMI, lexeme=';'}
+Token{type=WHILE, lexeme='যতক্ষণ'}
+Token{type=LPAREN, lexeme='('}
+Token{type=ID, lexeme='লুপ'}
+Token{type=LTE, lexeme='<='}
+Token{type=NUMBER, lexeme='৩'}
+Token{type=RPAREN, lexeme=')'}
+Token{type=LBRACE, lexeme='{'}
+Token{type=PRINT, lexeme='দেখাও'}
+Token{type=LPAREN, lexeme='('}
+Token{type=ID, lexeme='লুপ'}
+Token{type=RPAREN, lexeme=')'}
+Token{type=SEMI, lexeme=';'}
+Token{type=ID, lexeme='লুপ'}
+Token{type=ASSIGN, lexeme='='}
+Token{type=ID, lexeme='লুপ'}
+Token{type=PLUS, lexeme='+'}
+Token{type=NUMBER, lexeme='১'}
+Token{type=SEMI, lexeme=';'}
+Token{type=RBRACE, lexeme='}'}
+Token{type=EOF, lexeme=''}
+
+=== STEP 2: SYNTAX ANALYSIS (AST) ===
+Assignment: প্রথম
+  Integer Value: ১০
+Assignment: দ্বিতীয়
+  Integer Value: ২০
+Assignment: যোগ
+  Binary Operator: +
+    Variable: প্রথম
+    Variable: দ্বিতীয়
+Print:
+  Variable: যোগ
+Assignment: বিয়োগ
+  Binary Operator: -
+    Variable: প্রথম
+    Variable: দ্বিতীয়
+Print:
+  Variable: বিয়োগ
+Assignment: গুণ
+  Binary Operator: *
+    Variable: প্রথম
+    Variable: দ্বিতীয়
+Print:
+  Variable: গুণ
+Assignment: ভাগ
+  Binary Operator: /
+    Variable: প্রথম
+    Variable: দ্বিতীয়
+Print:
+  Variable: ভাগ
+If Statement:
+  Condition:
+    Binary Operator: >
+      Variable: যোগ
+      Integer Value: ১৫০
+  Then:
+    Print:
+      Integer Value: ১
+  Else:
+    Print:
+      Integer Value: ০
+Assignment: লুপ
+  Integer Value: ১
+While Loop:
+  Condition:
+    Binary Operator: <=
+      Variable: লুপ
+      Integer Value: ৩
+  Body:
+    Print:
+      Variable: লুপ
+    Assignment: লুপ
+      Binary Operator: +
+        Variable: লুপ
+        Integer Value: ১
+
+=== STEP 3: SEMANTIC ANALYSIS & SYMBOL TABLE ===
+[Status]: Type checking passed.
+[Status]: Scope check passed.
+-------------------------
+Variable | Value (Bangla)
+-------------------------
+প্রথম : ১০
+দ্বিতীয় : ২০
+যোগ : ৩০
+বিয়োগ : -১০
+গুণ : ২০০
+ভাগ : ০
+লুপ : ৪
+-------------------------
+[Print Output]:
+  ৩০
+  -১০
+  ২০০
+  ০
+  ০
+  ১
+  ২
+  ৩
+
+=== STEP 4: INTERMEDIATE CODE ===
+প্রথম = ১০
+দ্বিতীয় = ২০
+t1 = প্রথম + দ্বিতীয়
+যোগ = t1
+PRINT যোগ
+t2 = প্রথম - দ্বিতীয়
+বিয়োগ = t2
+PRINT বিয়োগ
+t3 = প্রথম * দ্বিতীয়
+গুণ = t3
+PRINT গুণ
+t4 = প্রথম / দ্বিতীয়
+ভাগ = t4
+PRINT ভাগ
+t5 = যোগ > ১৫০
+IF_FALSE t5 GOTO L1
+PRINT ১
+GOTO L2
+L1:
+PRINT ০
+L2:
+লুপ = ১
+L3:
+t6 = লুপ <= ৩
+IF_FALSE t6 GOTO L4
+PRINT লুপ
+t7 = লুপ + ১
+লুপ = t7
+GOTO L3
+L4:
+
+=== STEP 5: CODE OPTIMIZATION ===
+[Before]: 30 instructions
+[After]:  30 instructions
+[Removed]: 0 instructions
+-------------------------
+[Optimized Code]:
+  প্রথম = ১০
+  দ্বিতীয় = ২০
+  t1 = প্রথম + দ্বিতীয়
+  যোগ = t1
+  PRINT যোগ
+  t2 = প্রথম - দ্বিতীয়
+  বিয়োগ = t2
+  PRINT বিয়োগ
+  t3 = প্রথম * দ্বিতীয়
+  গুণ = t3
+  PRINT গুণ
+  t4 = প্রথম / দ্বিতীয়
+  ভাগ = t4
+  PRINT ভাগ
+  t5 = যোগ > ১৫০
+  IF_FALSE t5 GOTO L1
+  PRINT ১
+  GOTO L2
+  L1:
+  PRINT ০
+  L2:
+  লুপ = ১
+  L3:
+  t6 = লুপ <= ৩
+  IF_FALSE t6 GOTO L4
+  PRINT লুপ
+  t7 = লুপ + ১
+  লুপ = t7
+  GOTO L3
+  L4:
+
+=== STEP 6: TARGET CODE GENERATION ===
+[Status]: Python target code generated successfully.
+[Target File]: D:\BanglaCompilar\output.py
